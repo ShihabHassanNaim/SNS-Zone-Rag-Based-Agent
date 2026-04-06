@@ -1,0 +1,13 @@
+name,buying_price,selling_price,category,quality
+Orthodox Black Tea,1700,2200,black,premium
+Green Tea,600,1000,green,standard
+Tea Gold Premium,550,800,blend,premium
+Tea Gold,450,700,blend,standard
+BT2 Special,380,600,black,standard
+BT2,300,500,black,cheap
+Dust,230,400,low,cheap
+CD,230,400,low,cheap
+PF,190,310,low,cheap
+RD,185,300,low,cheap
+BOP,180,300,black,cheap
+GBOP,180,350,black,standard
