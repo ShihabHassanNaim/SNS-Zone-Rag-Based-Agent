@@ -1,146 +1,229 @@
 
-# Tea Business Automation 🍵
+# Tea Business Automation System
 
-A multi-agent AI system for automating tea business operations using FastAPI, LLMs, and RAG (Retrieval-Augmented Generation).
+> An intelligent multi-agent AI system for automating tea business operations using FastAPI, LangChain, and Retrieval-Augmented Generation (RAG).
 
----
-
-## 🚀 Overview
-
-This project is an intelligent multi-agent system designed to automate tea business operations. It leverages LangChain agents, RAG-based product information retrieval, and LLMs to provide accurate responses about tea products, inventory, and business queries.
-
----
-
-## 🧠 Key Features
-
-- 🤖 Multi-agent architecture for complex task handling
-- 📚 RAG-based product information retrieval
-- 🔍 Vector search for semantic product matching
-- 🍵 Tea product database integration
-- ⚡ FastAPI REST endpoints for easy integration
-- 🧾 Structured schema validation
-- 📊 CSV-based product data management
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-green)
+![LangChain](https://img.shields.io/badge/LangChain-latest-red)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 
 ---
 
-## 🛠️ Tech Stack
+## Overview
 
-- **Python** - Core language
-- **FastAPI** - REST API framework
-- **LangChain** - Agent and LLM orchestration
-- **LLMs** - Language model integration
-- **Vector Search** - Semantic search for products
-- **Pydantic** - Data validation with schemas
+This project implements an enterprise-grade multi-agent system designed to automate tea business operations. The system leverages advanced AI techniques including LangChain for agent orchestration, RAG for intelligent product information retrieval, and LLMs for natural language understanding and generation.
+
+### Key Benefits
+
+- **Intelligent Query Processing**: Multi-agent architecture handles complex business queries
+- **Context-Aware Responses**: RAG ensures responses are grounded in actual product data
+- **Scalable API**: FastAPI provides high-performance REST endpoints
+- **Easy Integration**: Clean, well-documented API for seamless third-party integration
 
 ---
 
-## 📂 Project Structure
+## Features
+
+- **Multi-Agent Architecture**: Orchestrated agents handle specialized business tasks
+- **RAG Pipeline**: Semantic search retrieves relevant product information
+- **Vector Search**: Fast similarity matching for product queries
+- **RESTful API**: FastAPI endpoints for easy integration
+- **Data Validation**: Pydantic schemas ensure data integrity
+- **CSV Database**: Simple yet effective product data management
+
+---
+
+## Technology Stack
+
+| Component | Technology |
+|-----------|-----------|
+| **Language** | Python 3.8+ |
+| **API Framework** | FastAPI |
+| **Agent Framework** | LangChain |
+| **LLM Integration** | LLM API (OpenAI/Claude/Local) |
+| **Data Validation** | Pydantic |
+| **Search** | Vector/Semantic Search |
+| **Server** | Uvicorn |
+
+---
+
+## Project Structure
 
 ```
 Tea_Business_Automation/
 │
-├── main.py                 # FastAPI application entry point
-├── requirements.txt        # Project dependencies
-├── README.md              # Project documentation
+├── main.py                      # Application entry point
+├── requirements.txt             # Python dependencies
+├── README.md                    # Documentation
 │
 ├── data/
-│   └── products.csv       # Tea product database
+│   └── products.csv             # Tea product database
 │
 ├── endpoints/
-│   └── endpoint.py        # API route handlers
+│   └── endpoint.py              # API route handlers
 │
 ├── schemas/
-│   └── schema.py          # Pydantic data models
+│   └── schema.py                # Pydantic data models
 │
 ├── services/
-│   ├── agents.py          # LangChain agent definitions
-│   ├── config.py          # Configuration settings
-│   ├── graph.py           # Agent graph/workflow builder
-│   ├── model.py           # LLM model configuration
-│   └── tools.py           # Custom tools for agents
+│   ├── agents.py                # Agent definitions
+│   ├── config.py                # Configuration management
+│   ├── graph.py                 # Workflow orchestration
+│   ├── model.py                 # LLM configuration
+│   └── tools.py                 # Custom agent tools
 │
 └── rag/
-    └── rag_products.py    # RAG pipeline for products
+    └── rag_products.py          # RAG pipeline implementation
 ```
 
 ---
 
-## 🔄 How It Works
+## Prerequisites
 
-1. User sends a query via the `/multi-agents` API endpoint
-2. Query is processed by the multi-agent system
-3. Agents retrieve relevant product information using RAG
-4. LLM generates a contextual response based on retrieved data
-5. Response is returned to the user
+Before getting started, ensure you have:
+
+- **Python 3.8 or higher** installed
+- **pip** package manager
+- **Virtual environment tool** (recommended)
+- **LLM API Keys** (OpenAI, Claude, or local LLM setup)
 
 ---
 
-## 💻 Installation & Setup
+## Installation
 
-### 1️⃣ Create virtual environment
+### Step 1: Clone the Repository
 
 ```bash
-python -m venv venv
-source venv/bin/activate   # Linux/Mac
-venv\Scripts\activate      # Windows
+git clone <repository-url>
+cd Tea_Business_Automation
 ```
 
-### 2️⃣ Install dependencies
+### Step 2: Create Virtual Environment
+
+```bash
+# Linux/macOS
+python -m venv venv
+source venv/bin/activate
+
+# Windows
+python -m venv venv
+venv\Scripts\activate
+```
+
+### Step 3: Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3️⃣ Configure environment
+### Step 4: Configure Environment
 
-Update `services/config.py` with your LLM API keys and settings.
+Update `services/config.py` with your configuration:
 
-### 4️⃣ Run the application
+```python
+# LLM API Key
+LLM_API_KEY = "your-api-key-here"
+
+# Model Settings
+MODEL_NAME = "gpt-4"  # or your preferred model
+```
+
+### Step 5: Run the Application
 
 ```bash
 python main.py
 ```
 
-The API will be available at `http://0.0.0.0:8000`
+The API will be available at: `http://localhost:8000`
+
+### View API Documentation
+
+- **Swagger UI**: `http://localhost:8000/docs`
+- **ReDoc**: `http://localhost:8000/redoc`
 
 ---
 
-## 📡 API Endpoints
+## API Documentation
 
-### POST `/multi-agents`
+### Endpoint: `/multi-agents`
 
-Send queries to the multi-agent system.
+Send natural language queries to the multi-agent system.
 
-**Request:**
+**Method**: `POST`
+
+**Request Body**:
 ```json
 {
-  "query": "What tea products do you have available?"
+  "query": "What are the available green tea products?"
 }
 ```
 
-**Response:**
+**Response**:
 ```json
 {
-  "answer": "We have a variety of tea products including..."
+  "answer": "We have a selection of premium green teas including Dragon Well, Sencha, and Matcha. Each offers unique flavor profiles..."
 }
+```
+
+**Status Codes**:
+- `200`: Success
+- `400`: Invalid request
+- `500`: Server error
+
+---
+
+## System Architecture
+
+```
+┌─────────────────────────────────────┐
+│      User Query (FastAPI)           │
+└──────────────┬──────────────────────┘
+               │
+┌──────────────▼──────────────────────┐
+│   Query Processing & Validation     │
+└──────────────┬──────────────────────┘
+               │
+┌──────────────▼──────────────────────┐
+│     Multi-Agent Orchestration       │
+│   (LangChain Graph Execution)       │
+└──────────────┬──────────────────────┘
+               │
+┌──────────────▼──────────────────────┐
+│   RAG Pipeline & Vector Search      │
+│  (Retrieve Product Information)     │
+└──────────────┬──────────────────────┘
+               │
+┌──────────────▼──────────────────────┐
+│    LLM Processing & Generation      │
+│   (Context-Aware Response)          │
+└──────────────┬──────────────────────┘
+               │
+┌──────────────▼──────────────────────┐
+│      Return Response to User        │
+└─────────────────────────────────────┘
 ```
 
 ---
 
-## 🗂️ Data Format
+## Data Format
 
-### Products CSV (`data/products.csv`)
+### Products Database (`data/products.csv`)
 
-The product database contains tea product information including:
-- Product name
-- Description
-- Price
-- Availability
-- Category
+The product database should contain the following fields:
+
+```csv
+id,name,description,price,category,availability,quantity
+1,Green Tea Sencha,Premium Japanese green tea,12.99,Green Tea,In Stock,50
+2,Oolong Tea,Authentic Chinese oolong,15.99,Oolong,In Stock,35
+3,Black Tea Assam,Strong Indian black tea,11.99,Black Tea,In Stock,40
+```
 
 ---
 
-## 🎯 Usage Example
+## Usage Example
+
+### Python Client
 
 ```python
 from fastapi.testclient import TestClient
@@ -148,73 +231,91 @@ from main import app
 
 client = TestClient(app)
 
-response = client.post("/multi-agents", json={"query": "Show me available green teas"})
-print(response.json())
+# Query the system
+response = client.post(
+    "/multi-agents",
+    json={"query": "Show me premium green teas under $15"}
+)
+
+# Process response
+result = response.json()
+print(f"Answer: {result['answer']}")
+```
+
+### cURL
+
+```bash
+curl -X POST "http://localhost:8000/multi-agents" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "What green teas do you have?"}'
 ```
 
 ---
 
-## 📊 Possible Improvements
+## Troubleshooting
 
-- Add authentication and user management
-- Implement database instead of CSV
-- Add caching for faster responses
-- Build web UI (Streamlit/React)
-- Add order processing capabilities
-- Implement analytics and reporting
+### Common Issues
 
----
+| Issue | Solution |
+|-------|----------|
+| Port 8000 already in use | Change port in `main.py` or kill existing process |
+| Missing dependencies | Run `pip install -r requirements.txt` |
+| LLM API key errors | Verify API key in `services/config.py` |
+| CSV file not found | Ensure `data/products.csv` exists |
 
-## 🧪 Future Enhancements
+### Debugging
 
-- Real-time inventory management
-- Customer recommendation system
-- Multi-language support
-- Advanced search filters
-- Payment integration
+Enable verbose logging in `services/config.py`:
 
----
-
-## 📝 License
-
-This project is part of the AI Agent Course from Ostad.
-
----
-
-## 👤 Author
-
-Developed as an AI Agent automation course project.
-- ✔ You think like an engineer  
-
-👉 This is what gets interviews.
-
----
-
-# 🚀 OPTIONAL (VERY STRONG BOOST)
-
-If you want to go next level, add:
-
-### Screenshot / Demo
+```python
+LOG_LEVEL = "DEBUG"
 ```
 
-```
+---
 
-### Architecture Image
-(I can generate one for you if you want)
+## Roadmap
+
+### Short Term
+- [ ] Add authentication and user management
+- [ ] Implement database layer (PostgreSQL/MongoDB)
+- [ ] Add request caching
+
+### Medium Term
+- [ ] Build web dashboard (React/Vue)
+- [ ] Implement order processing
+- [ ] Add analytics dashboard
+
+### Long Term
+- [ ] Real-time inventory synchronization
+- [ ] Multi-language support
+- [ ] Advanced recommendation system
+- [ ] Payment gateway integration
 
 ---
 
-# 🎯 Final advice
+## Contributing
 
-Your repo + this README =  
-👉 **Top-tier student project**
+Contributions are welcome! To contribute:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/improvement`)
+3. Commit changes (`git commit -am 'Add improvement'`)
+4. Push to branch (`git push origin feature/improvement`)
+5. Create a Pull Request
 
 ---
 
-If you want next, I can:
-- Create **architecture diagram image**
-- Help you explain this in interview
-- Improve your **main.py structure**
+## License
 
-Just tell me 👍
-```
+This project is part of the **AI Agent Course** from **Ostad**.
+
+---
+
+## Support & Contact
+
+For questions, issues, or suggestions, please open an issue in the repository.
+
+---
+
+**Last Updated**: April 2026  
+**Version**: 1.0.0
