@@ -1,6 +1,6 @@
 
 
-# ✅ FULL PROFESSIONAL README
+# ✅ README
 
 ```markdown id="fullsnsrag01"
 # SNS Zone RAG-Based AI Agent 🤖
