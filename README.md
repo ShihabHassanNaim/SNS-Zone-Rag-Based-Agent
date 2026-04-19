@@ -1,102 +1,83 @@
 
+# Tea Business Automation 🍵
 
-# ✅ README
-
-```markdown id="fullsnsrag01"
-# SNS Zone RAG-Based AI Agent 🤖
-
-A Retrieval-Augmented Generation (RAG) based AI agent designed to provide accurate, context-aware responses using vector search and Large Language Models (LLMs).
+A multi-agent AI system for automating tea business operations using FastAPI, LLMs, and RAG (Retrieval-Augmented Generation).
 
 ---
 
 ## 🚀 Overview
 
-This project implements a complete RAG pipeline that combines semantic retrieval and language generation to answer user queries more reliably.
-
-Instead of relying only on model memory, the system retrieves relevant information from a knowledge base and uses it to generate grounded responses.
+This project is an intelligent multi-agent system designed to automate tea business operations. It leverages LangChain agents, RAG-based product information retrieval, and LLMs to provide accurate responses about tea products, inventory, and business queries.
 
 ---
 
 ## 🧠 Key Features
 
-- 🔍 Context-aware query answering
-- 📚 Retrieval-Augmented Generation (RAG)
-- 🧾 Embedding-based semantic search
-- 🤖 LLM-powered response generation
-- ⚡ Reduced hallucination using retrieved context
-- 🔄 Modular pipeline design
-
----
-
-## ⚙️ Architecture
-
-```
-
-User Query
-↓
-Text Embedding
-↓
-Vector Search (FAISS / Similarity)
-↓
-Relevant Context Retrieved
-↓
-LLM (Generate Answer with Context)
-↓
-Final Response
-
-```
+- 🤖 Multi-agent architecture for complex task handling
+- 📚 RAG-based product information retrieval
+- 🔍 Vector search for semantic product matching
+- 🍵 Tea product database integration
+- ⚡ FastAPI REST endpoints for easy integration
+- 🧾 Structured schema validation
+- 📊 CSV-based product data management
 
 ---
 
 ## 🛠️ Tech Stack
 
-- Python
-- Hugging Face Transformers
-- LangChain / Custom Pipeline
-- FAISS (or similarity-based retrieval)
-- LLM (LLaMA / OpenAI / similar)
+- **Python** - Core language
+- **FastAPI** - REST API framework
+- **LangChain** - Agent and LLM orchestration
+- **LLMs** - Language model integration
+- **Vector Search** - Semantic search for products
+- **Pydantic** - Data validation with schemas
 
 ---
 
 ## 📂 Project Structure
 
 ```
-
-SNS-Zone-Rag-Based-Agent/
+Tea_Business_Automation/
 │
-├── data/              # Knowledge base / documents
-├── embeddings/        # Stored vector embeddings
-├── pipeline/          # RAG pipeline logic
-├── utils/             # Helper functions
-├── main.py            # Entry point
-└── README.md
-
-````
+├── main.py                 # FastAPI application entry point
+├── requirements.txt        # Project dependencies
+├── README.md              # Project documentation
+│
+├── data/
+│   └── products.csv       # Tea product database
+│
+├── endpoints/
+│   └── endpoint.py        # API route handlers
+│
+├── schemas/
+│   └── schema.py          # Pydantic data models
+│
+├── services/
+│   ├── agents.py          # LangChain agent definitions
+│   ├── config.py          # Configuration settings
+│   ├── graph.py           # Agent graph/workflow builder
+│   ├── model.py           # LLM model configuration
+│   └── tools.py           # Custom tools for agents
+│
+└── rag/
+    └── rag_products.py    # RAG pipeline for products
+```
 
 ---
 
 ## 🔄 How It Works
 
-1. User inputs a query  
-2. Query is converted into vector embeddings  
-3. System searches for similar documents using vector similarity  
-4. Retrieved context is passed to the LLM  
-5. LLM generates a response based on that context  
+1. User sends a query via the `/multi-agents` API endpoint
+2. Query is processed by the multi-agent system
+3. Agents retrieve relevant product information using RAG
+4. LLM generates a contextual response based on retrieved data
+5. Response is returned to the user
 
 ---
 
 ## 💻 Installation & Setup
 
-### 1️⃣ Clone the repository
-
-```bash
-git clone https://github.com/ShihabHassanNaim/SNS-Zone-Rag-Based-Agent.git
-cd SNS-Zone-Rag-Based-Agent
-````
-
----
-
-### 2️⃣ Create virtual environment (recommended)
+### 1️⃣ Create virtual environment
 
 ```bash
 python -m venv venv
@@ -104,100 +85,105 @@ source venv/bin/activate   # Linux/Mac
 venv\Scripts\activate      # Windows
 ```
 
----
-
-### 3️⃣ Install dependencies
+### 2️⃣ Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-*(If requirements.txt is not available, install manually)*
+### 3️⃣ Configure environment
 
-```bash
-pip install transformers sentence-transformers faiss-cpu langchain
-```
+Update `services/config.py` with your LLM API keys and settings.
 
----
-
-### 4️⃣ Run the project
+### 4️⃣ Run the application
 
 ```bash
 python main.py
 ```
 
----
-
-## 📌 Example
-
-**Input:**
-
-```
-What is thyroid disease?
-```
-
-**Output:**
-
-```
-Thyroid disease refers to a condition affecting the thyroid gland...
-```
-
-✔ Response is generated using retrieved knowledge
-✔ Not just LLM memory
+The API will be available at `http://0.0.0.0:8000`
 
 ---
 
-## 🎯 Why RAG?
+## 📡 API Endpoints
 
-* Improves factual accuracy
-* Reduces hallucination
-* Enables domain-specific knowledge
-* Makes AI systems more reliable
+### POST `/multi-agents`
+
+Send queries to the multi-agent system.
+
+**Request:**
+```json
+{
+  "query": "What tea products do you have available?"
+}
+```
+
+**Response:**
+```json
+{
+  "answer": "We have a variety of tea products including..."
+}
+```
+
+---
+
+## 🗂️ Data Format
+
+### Products CSV (`data/products.csv`)
+
+The product database contains tea product information including:
+- Product name
+- Description
+- Price
+- Availability
+- Category
+
+---
+
+## 🎯 Usage Example
+
+```python
+from fastapi.testclient import TestClient
+from main import app
+
+client = TestClient(app)
+
+response = client.post("/multi-agents", json={"query": "Show me available green teas"})
+print(response.json())
+```
 
 ---
 
 ## 📊 Possible Improvements
 
-* Add hybrid retrieval (BM25 + embeddings)
-* Add UI (Streamlit / Web app)
-* Implement evaluation metrics (F1, accuracy, relevance)
-* Deploy as REST API using FastAPI
-* Add caching for faster inference
+- Add authentication and user management
+- Implement database instead of CSV
+- Add caching for faster responses
+- Build web UI (Streamlit/React)
+- Add order processing capabilities
+- Implement analytics and reporting
 
 ---
 
-## 🧪 Future Work
+## 🧪 Future Enhancements
 
-* Multi-agent RAG system
-* Real-time document ingestion
-* Feedback-based learning loop
-* Scalable vector database (Pinecone / Weaviate)
+- Real-time inventory management
+- Customer recommendation system
+- Multi-language support
+- Advanced search filters
+- Payment integration
+
+---
+
+## 📝 License
+
+This project is part of the AI Agent Course from Ostad.
 
 ---
 
 ## 👤 Author
 
-**Md. Shihab Hassan Naim**
-📧 [shihab.hassan.51.cse@gmail.com](mailto:shihab.hassan.51.cse@gmail.com)
-🔗 [https://github.com/ShihabHassanNaim](https://github.com/ShihabHassanNaim)
-
----
-
-## ⭐ Support
-
-If you find this project useful, consider giving it a ⭐ on GitHub!
-
-```
-
----
-
-# 🔥 Why this is strong (real impact)
-
-When someone opens your repo, they will see:
-
-- ✔ You understand RAG pipeline  
-- ✔ You understand embeddings  
-- ✔ You can build systems  
+Developed as an AI Agent automation course project.
 - ✔ You think like an engineer  
 
 👉 This is what gets interviews.
